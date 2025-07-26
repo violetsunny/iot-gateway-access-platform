@@ -1,2 +1,5 @@
-# iot-gateway-access-platform
-新的IOT接入服务平台，后管的网关配置、协议管理、监控管理等
+#本地快速启动
+> 启动时指定java参数：-Dapollo.meta=http://apollo-configservice.test.fnwintranet.com -Denv=DEV
+
+#框架使用说明
+> 具体请参见:https://confluence.enncloud.cn/pages/viewpage.action?pageId=451510505

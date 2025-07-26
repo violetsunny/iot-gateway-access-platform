@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ennew.iot.gateway.dal.mapper.TrdPlatformInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.ennew.iot.gateway.dal.entity.TrdPlatformInfoEntity" >
+        <result column="id" property="id" />
+        <result column="p_type" property="pType" />
+        <result column="p_code" property="pCode" />
+        <result column="p_name" property="pName" />
+        <result column="p_source" property="pSource" />
+        <result column="config_json" property="configJson" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="status" property="status" />
+        <result column="is_delete" property="isDelete" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        p_type,
+        p_code,
+        p_name,
+        p_source,
+        config_json,
+        create_user,
+        create_time,
+        update_user,
+        update_time,
+        status,
+        is_delete,
+        remark
+    </sql>
+
+    <select id="queryPage" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        trd_platform_info u
+        WHERE u.is_delete = 0
+        <if test="params.pName != null and params.pName !=''">
+            AND u.p_name LIKE CONCAT('%',CONCAT('/', #{params.pName},'%')) ESCAPE '/'
+        </if>
+        <if test="params.pCode != null and params.pCode !=''">
+            AND u.p_code = #{params.pCode}
+        </if>
+        <if test="params.pType != null and params.pType !=''">
+            AND u.p_type = #{params.pType}
+        </if>
+        <if test="params.pSource != null and params.pSource !=''">
+            AND u.p_source = #{params.pSource}
+        </if>
+        ORDER BY u.create_time desc
+    </select>
+
+</mapper>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ennew.iot.gateway.dal.mapper.DeviceGatewayMapper">
+    <sql id="Base_Column_List">
+        g.*,
+        p.name as protocolName,
+        n.id as networkId,
+        n.name as networkName,
+        n.type as networkType,
+        n.configuration as networkConfiguration,
+        n.description as networkDescription
+    </sql>
+    <resultMap id="BaseResultMap" type="com.ennew.iot.gateway.dal.entity.DeviceGatewayEntity">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="protocol" column="protocol"/>
+        <result property="protocolName" column="protocolName"/>
+        <result property="state" column="state"/>
+        <result property="networkId" column="networkId"/>
+        <result property="configuration" column="configuration" typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+        <result property="description" column="description"/>
+        <association property="networkConfig" javaType="com.ennew.iot.gateway.dal.entity.NetworkConfigEntity">
+            <id property="id" column="networkId"/>
+            <result property="name" column="networkName"/>
+            <result property="type" column="networkType"/>
+            <result property="configuration" column="networkConfiguration" typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+            <result property="description" column="networkDescription"/>
+        </association>
+    </resultMap>
+
+    <select id="queryPage" parameterType="Map"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        dev_gateway g join network_config n on g.network_id=n.id join dev_protocol p on g.protocol = p.id
+        <where>
+            <if test="params.id != null and params.id != ''">
+                and g.id = #{params.id}
+            </if>
+            <if test="params.name != null and params.name != ''">
+                and g.name like concat('%',#{params.name},'%')
+            </if>
+            <if test="params.type != null and params.type != ''">
+                and g.type = #{params.type}
+            </if>
+            <if test="params.state != null">
+                and g.state = #{params.state}
+            </if>
+            and p.state = 1
+        </where>
+    </select>
+
+    <select id="queryById" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        dev_gateway g join network_config n on g.network_id=n.id join dev_protocol p on g.protocol = p.id
+        where g.id = #{id}
+    </select>
+</mapper>

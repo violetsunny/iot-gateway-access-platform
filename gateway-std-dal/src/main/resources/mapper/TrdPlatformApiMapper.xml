@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ennew.iot.gateway.dal.mapper.TrdPlatformApiMapper">
+
+    <resultMap id="BaseResultMap" type="com.ennew.iot.gateway.dal.entity.TrdPlatformApiEntity" >
+        <result column="id" property="id" />
+        <result column="p_code" property="pCode" />
+        <result column="api_type" property="apiType" />
+        <result column="api_name" property="apiName" />
+        <result column="full_url" property="fullUrl" />
+        <result column="method" property="method" />
+        <result column="has_param" property="hasParam" />
+        <result column="body_analysis_type" property="bodyAnalysisType" />
+        <result column="body_analysis_code" property="bodyAnalysisCode" />
+        <result column="has_pages" property="hasPages" />
+        <result column="page_size" property="pageSize" />
+        <result column="page_position" property="pagePosition" />
+        <result column="page_start_no" property="pageStartNo" />
+        <result column="total_number_type" property="totalNumberType" />
+        <result column="total_number_config" property="totalNumberConfig" />
+        <result column="function_type" property="functionType" />
+        <result column="auth_type" property="authType" />
+        <result column="auth_api" property="authApi" />
+        <result column="call_limit" property="callLimit" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_delete" property="isDelete" />
+        <result column="status" property="status" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        p_code,
+        api_type,
+        api_name,
+        full_url,
+        method,
+        has_param,
+        body_analysis_type,
+        body_analysis_code,
+        has_pages,
+        page_size,
+        page_position,
+        page_start_no,
+        total_number_type,
+        total_number_config,
+        function_type,
+        auth_type,
+        auth_api,
+        call_limit,
+        create_user,
+        create_time,
+        update_user,
+        update_time,
+        is_delete,
+        status,
+        remark
+    </sql>
+
+</mapper>

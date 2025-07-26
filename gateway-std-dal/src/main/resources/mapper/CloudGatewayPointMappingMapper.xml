@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ennew.iot.gateway.dal.mapper.CloudGatewayPointMappingMapper">
+
+    <select id="queryMappingPage"  resultType="java.util.HashMap">
+        select
+        t1.id as pointId,
+        t1.name as pointName,
+        t1.config_json as configJson,
+        t1.real_device_name as realDeviceName,
+        t2.device_id as deviceId,
+        t2.product_id as productId,
+        t2.metric as deviceMetric
+         from cloud_gateway_point t1 left join (select * from cloud_gateway_point_mapping where cloud_gateway_code = #{gatewayCode} and is_delete = 0) t2 on t1.id = t2.point_id
+        <where>
+             t1.is_delete = 0
+             and t1.cloud_gateway_code = #{gatewayCode}
+            <if test="type == 'unbind'"> and t2.device_id is null</if>
+            <if test="type == 'bind'"> and t2.device_id is not null</if>
+            <if test="deviceId != null and deviceId != ''"> and t2.device_id = #{deviceId}</if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.enn.iot</groupId>
+        <artifactId>gateway-std-service</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <!--application层 -->
+    <artifactId>gateway-std-biz-service</artifactId>
+    <packaging>jar</packaging>
+    <name>gateway-std-biz-service</name>
+
+    <dependencies>
+        <!-- Project Dependencies -->
+        <dependency>
+            <groupId>com.enn.iot</groupId>
+            <artifactId>gateway-std-core-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.enn.iot</groupId>
+            <artifactId>gateway-std-integration</artifactId>
+        </dependency>
+
+        <!-- prometheus 应用埋点监控依赖-->
+        <dependency>
+            <groupId>io.prometheus</groupId>
+            <artifactId>simpleclient_pushgateway</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hswebframework</groupId>
+            <artifactId>hsweb-expands-script</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <dependency>
+            <artifactId>protocols-common</artifactId>
+            <groupId>cn.enncloud.iot.gateway</groupId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <artifactId>connectors-common</artifactId>
+            <groupId>cn.enncloud.iot.gateway</groupId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+</project>

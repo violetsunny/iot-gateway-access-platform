@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ennew.iot.gateway.dal.mapper.TrdPlatformModelRefMapper">
+
+    <resultMap id="BaseResultMap" type="com.ennew.iot.gateway.dal.entity.TrdPlatformModelRefEntity" >
+        <result column="id" property="id" />
+        <result column="platform_code" property="platformCode" />
+        <result column="enn_model_source" property="ennModelSource" />
+        <result column="enn_model_id" property="ennModelId" />
+        <result column="enn_model_name" property="ennModelName" />
+        <result column="enn_model_code" property="ennModelCode" />
+        <result column="enn_product_id" property="ennProductId" />
+        <result column="enn_product_name" property="ennProductName" />
+        <result column="platform_model_name" property="platformModelName" />
+        <result column="platform_model_code" property="platformModelCode" />
+        <result column="platform_brand" property="platformBrand" />
+        <result column="platform_spec" property="platformSpec" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_delete" property="isDelete" />
+        <result column="status" property="status" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        platform_code,
+        enn_model_source,
+        enn_model_id,
+        enn_model_name,
+        enn_model_code,
+        enn_product_id,
+        enn_product_name,
+        platform_model_name,
+        platform_model_code,
+        platform_brand,
+        platform_spec,
+        create_user,
+        create_time,
+        update_user,
+        update_time,
+        is_delete,
+        status,
+        remark
+    </sql>
+
+    <select id="queryPage" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        trd_platform_model_ref u
+        WHERE u.is_delete = 0
+        <if test="params.platformModelName != null and params.platformModelName !=''">
+            AND u.platform_model_name LIKE CONCAT('%',#{params.platformModelName},'%')
+        </if>
+        <if test="params.platformModelCode != null and params.platformModelCode !=''">
+            AND u.platform_model_code = #{params.platformModelCode}
+        </if>
+        <if test="params.platformCode != null and params.platformCode !=''">
+            AND u.platform_code = #{params.platformCode}
+        </if>
+        <if test="params.key != null and params.key !=''">
+            AND ( u.platform_model_name LIKE CONCAT('%',#{params.key},'%') or u.platform_model_code LIKE CONCAT('%',#{params.key},'%'))
+        </if>
+        ORDER BY u.create_time desc
+    </select>
+
+</mapper>

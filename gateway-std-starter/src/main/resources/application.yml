@@ -1,0 +1,25 @@
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  type-aliases-package: com.ennew.iot.gateway.dal.entity
+#iot:
+#  cluster:
+#    name: ${spring.application.name}
+#    keepAliveTime: 2000
+#    timeout: 5000
+#enn:
+#  netty:
+#    port: 22602
+#logging:
+#  config: classpath:logback-spring.xml
+#  level:
+#    root: info
+#    com.ctrip.framework.apollo.internals.RemoteConfigLongPollService: error
+#    top.rdfa.timer.client.thread.ExecutorRegistryThread: warn
+#    com.alibaba.nacos.common.remote.client.RpcClient: warn
+#    org.springframework.kafka.annotation.KafkaListenerAnnotationBeanPostProcessor: warn
+#
+#management:
+#  health:
+#    elasticsearch:
+#      enabled: false

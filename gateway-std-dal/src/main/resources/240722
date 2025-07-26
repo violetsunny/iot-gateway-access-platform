@@ -1,0 +1,5 @@
+ALTER TABLE `trd_platform_info`
+    ADD COLUMN `p_source`  varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT 'custom' COMMENT '来源' AFTER `p_name`;
+
+UPDATE trd_platform_info SET p_source = 'custom' WHERE p_code = '522-test-modbus' or p_code = 'sdas';
+UPDATE trd_platform_info SET p_source = 'CIM' WHERE p_code = 'suowei' or p_code = 'TEST';

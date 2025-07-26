@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ennew.iot.gateway.dal.mapper.DeviceSessionMapper">
+    <sql id="Base_Column_List">
+        u.id,
+        u.server_id,
+        u.transport,
+        u.session_id,
+        u.device_id,
+        u.last_ping_time,
+        u.connect_time,
+        u.is_deleted,
+        u.remark,
+        u.create_time,
+        u.update_time
+    </sql>
+    <select id="queryPage" parameterType="Map"
+            resultType="com.ennew.iot.gateway.dal.entity.DeviceSessionEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        device_session u
+        where u.is_deleted = 0
+        <if test="params.serverId != null and params.serverId !=''">
+            and u.server_id = #{params.serverId}
+        </if>
+        <if test="params.transport != null and params.transport !=''">
+            and u.transport = #{params.transport}
+        </if>
+        <if test="params.sessionId != null and params.sessionId !=''">
+            and u.session_id like concat(#{params.sessionId},'%')
+        </if>
+        <if test="params.deviceId != null and params.deviceId !=''">
+            and u.device_id = #{params.deviceId}
+        </if>
+        order by u.id desc
+    </select>
+
+    <update id="remove" >
+        update device_session
+        set is_deleted = 1
+        where is_deleted = 0
+        and session_id = #{sessionId}
+    </update>
+
+    <select id="query"
+            resultType="com.ennew.iot.gateway.dal.entity.DeviceSessionEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        device_session u
+        where u.is_deleted = 0 and u.session_id = #{sessionId}
+    </select>
+
+    <select id="queryServerId"
+            resultType="com.ennew.iot.gateway.dal.entity.DeviceSessionEntity">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        device_session u
+        where u.is_deleted = 0 and u.server_id = #{serverId}
+    </select>
+
+    <update id="removeServerId" >
+        update device_session
+        set is_deleted = 1
+        where is_deleted = 0
+          and server_id = #{serverId}
+    </update>
+</mapper>

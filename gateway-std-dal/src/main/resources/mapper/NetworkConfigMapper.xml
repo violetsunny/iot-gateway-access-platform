@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ennew.iot.gateway.dal.mapper.NetworkConfigMapper">
+    <resultMap id="BaseResultMap" type="com.ennew.iot.gateway.dal.entity.NetworkConfigEntity">
+        <result property="configuration" column="configuration" typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+    </resultMap>
+    <select id="alive" resultMap="BaseResultMap">
+        SELECT *
+        FROM
+        network_config
+        <where>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            and id NOT IN
+            (
+            SELECT network_id FROM dev_gateway
+            <where>
+                <if test="type != null and type != ''">
+                    and type = #{type}
+                </if>
+            </where>
+            )
+            <if test="include != null and include != ''">
+                or id = #{include}
+            </if>
+        </where>
+    </select>
+</mapper>

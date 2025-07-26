@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ennew.iot.gateway.dal.mapper.TripartitePlatformInfoMapper">
+
+    <sql id="Base_Column_List">
+        id,
+        tenant_id,
+        name,
+        code,
+        base_url,
+        content,
+        description,
+        create_user,
+        create_time,
+        update_user,
+        update_time,
+        is_deleted
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.ennew.iot.gateway.dal.entity.TripartitePlatformInfoEntity">
+        <id property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="baseUrl" column="base_url"/>
+        <result property="content" column="content" typeHandler="com.baomidou.mybatisplus.extension.handlers.FastjsonTypeHandler"/>
+        <result property="description" column="description"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUser" column="update_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <select id="queryPage" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        tripartite_platform_info u
+        where u.is_deleted = 0
+        <if test="params.name != null and params.name !=''">
+            and u.name = #{params.name}
+        </if>
+        <if test="params.baseUrl != null and params.baseUrl !=''">
+            and u.base_url = #{params.baseUrl}
+        </if>
+        <if test="params.tenantId != null and params.tenantId !=''">
+            and u.tenant_id = #{params.tenantId}
+        </if>
+        order by u.create_time desc
+    </select>
+
+</mapper>

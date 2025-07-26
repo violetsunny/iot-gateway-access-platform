@@ -1,0 +1,74 @@
+#spring:
+#  redis:
+#    host: 10.39.64.34
+#    port: 6379
+#    password:
+#    lettuce:
+#      pool:
+#        max-active: 512
+#    timeout: 20s
+#    serializer: fst
+#  datasource:
+#    url: jdbc:mysql://10.39.68.62:3306/dev_iot_connection_mng?sslMode=disabled
+#    username: adm_airecon
+#    password: adm2o3rhU$2i
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    druid:
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#  elasticsearch:
+#    uris:
+#      - http://${elasticsearch.client.host}:${elasticsearch.client.port}
+#    connection-timeout: ${elasticsearch.client.connectTimeout}
+#    socket-timeout: ${elasticsearch.client.socketTimeout}
+#    #    rest:
+#    #      uris:
+#    #        - http://10.39.64.22:9200
+#    #    high-level-client:
+#    #      ip: 10.39.64.22
+#    #      port: 9200
+#    #      actions: 100
+#    #      size: 5
+#    #      wait-time: 10
+#    #      retry-times: 3
+#    #    bulk:
+#    #      switchFlag: true
+#  kafka:
+#    bootstrap-servers: 10.39.68.59:9092
+#    producer:
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer #配置序列化器
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#      batch-size: 1024 #每次发送的消息数量
+#      buffer-memory: 33554432
+#      #procedure要求leader在考虑完成请求之前收到的确认数，用于控制发送记录在服务端的持久化，其值可以为如下：
+#      #acks = 0 如果设置为零，则生产者将不会等待来自服务器的任何确认，该记录将立即添加到套接字缓冲区并视为已发送。在这种情况下，无法保证服务器已收到记录，并且重试配置将不会生效（因为客户端通常不会知道任何故障），为每条记录返回的偏移量始终设置为-1。
+#      #acks = 1 这意味着leader会将记录写入其本地日志，但无需等待所有副本服务器的完全确认即可做出回应，在这种情况下，如果leader在确认记录后立即失败，但在将数据复制到所有的副本服务器之前，则记录将会丢失。
+#      #acks = all 这意味着leader将等待完整的同步副本集以确认记录，这保证了只要至少一个同步副本服务器仍然存活，记录就不会丢失，这是最强有力的保证，这相当于acks = -1的设置。
+#      #可以设置的值为：all, -1, 0, 1
+#      acks: 1
+#    consumer:
+#      group-id: iot-gateway-std #group-id
+#      auto-offset-reset: latest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer #配置反序列化器
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      enable-auto-commit: true
+#      auto-commit-interval: 100
+#elasticsearch:
+#  client:
+#    host: 10.39.64.22
+#    port: 9200
+#    connectTimeout: 5
+#    socketTimeout: 3
+#minio:
+#  resourcesUrl: http://10.39.68.191:9002
+#  resourcesOutUrl: https://newiot.ennew.com/minio
+#  accessKeyId: minioadmin
+#  accessKeySecret: minioadmin
+#  bucket: protocol-dev
+#ennew:
+#  iot:
+#    device:
+#      url: http://10.39.64.22:8802
+#  httpserver:
+#    enabled: true
+#    options:
+#      port: 15001

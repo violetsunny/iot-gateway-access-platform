@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ennew.iot.gateway.dal.mapper.TrdPlatformMeasureRefMapper">
+
+    <resultMap id="BaseResultMap" type="com.ennew.iot.gateway.dal.entity.TrdPlatformMeasureRefEntity" >
+        <result column="id" property="id" />
+        <result column="platform_code" property="platformCode" />
+        <result column="model_ref_id" property="modelRefId" />
+        <result column="enn_model_code" property="ennModelCode" />
+        <result column="enn_measure_id" property="ennMeasureId" />
+        <result column="enn_measure_code" property="ennMeasureCode" />
+        <result column="enn_measure_name" property="ennMeasureName" />
+        <result column="enn_measure_unit" property="ennMeasureUnit" />
+        <result column="platform_measure_name" property="platformMeasureName" />
+        <result column="platform_measure_code" property="platformMeasureCode" />
+        <result column="platform_measure_unit" property="platformMeasureUnit" />
+        <result column="create_user" property="createUser" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user" property="updateUser" />
+        <result column="update_time" property="updateTime" />
+        <result column="is_delete" property="isDelete" />
+        <result column="status" property="status" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        platform_code,
+        model_ref_id,
+        enn_model_code,
+        enn_measure_id,
+        enn_measure_code,
+        enn_measure_name,
+        enn_measure_unit,
+        platform_measure_name,
+        platform_measure_code,
+        platform_measure_unit,
+        create_user,
+        create_time,
+        update_user,
+        update_time,
+        is_delete,
+        status,
+        remark
+    </sql>
+
+    <select id="queryPage" parameterType="Map" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        trd_platform_measure_ref u
+        WHERE u.is_delete = 0
+        <if test="params.platformCode != null and params.platformCode !=''">
+            AND u.platform_code = #{params.platformCode}
+        </if>
+        <if test="params.modelRefId != null and params.modelRefId !=''">
+            AND u.model_ref_id = #{params.modelRefId}
+        </if>
+        <if test="params.ennModelCode != null and params.ennModelCode !=''">
+            AND u.enn_model_code = #{params.ennModelCode}
+        </if>
+        ORDER BY u.create_time desc
+    </select>
+
+</mapper>
